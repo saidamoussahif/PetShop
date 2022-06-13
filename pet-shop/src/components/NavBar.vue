@@ -91,9 +91,9 @@
       };
     },
     mounted() {
-      
+
       this.getCategories();
-      if (localStorage.getItem("login")) {
+      if (localStorage.getItem("loginas")) {
         const data = JSON.parse(localStorage.getItem("login"));
         this.firstName = data.client.firstname;
         this.lastName = data.client.lastname;
