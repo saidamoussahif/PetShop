@@ -14,26 +14,37 @@
           <div class="col col-1">Action</div>
          
         </li>
-        <li class="table-row">
+        <li class="table-row" v-for="account in accounts" :key="account.id">
           <div
             class="col col-1"
             style="width=100%;"
-            data-label="Customer Name :"
+            data-label="First Name :"
           >
-            <div>test</div>
+            <div> 
+              <span>{{ account.firstname }}</span>
             </div>
-             <div>test</div>
-            <div>test</div>
-            <div>test</div>
+            </div>
+             <div
+            class="col col-1"
+            style="width=100%;"
+            data-label="Last Name :"
+          >
+             <div>
+              <span>{{ account.lastname }}</span>
+             </div>
+            <div>
+              <span>{{ account.email }}</span>
+            </div>
+            </div>
+            <div>
+              <span>{{ account.phone }}</span>
+            </div>
           <div
             class="col col-1"
             style="width='100%'"
             data-label="Payment Status"
           >
-            <button class="btn edit">
-              <FIcons :icon="['fa', 'edit']" />
-            </button>
-            <button class="btn delete">
+            <button class="btn delete" @click="del(account.id_client)"   >
               <FIcons :icon="['fas', 'trash']" />
             </button>
           </div>
@@ -41,15 +52,52 @@
       </ul>
     </div>
   </div> 
-
-
 </template>
+
 <script>
+
+import axios from 'axios';
 import SideBar from "@/components/SideBar.vue";
     export default {
         name: "AccountsView",
         components: {
             SideBar,
+        },
+        data() {
+            return {
+                accounts: [],
+            };
+        },
+        mounted() {
+            axios.get('http://localhost/fil-rouge/pet-shop/Backend/AccountsController/read').then(response => {
+                this.accounts = response.data;
+                   console.log(this.accounts);
+            });
+        },
+        methods: {
+            getAccounts: async function () {
+        const response = await axios.get(
+          "http://localhost/fil-rouge/pet-shop/Backend/AccountsController/read"
+        );
+        this.accounts = response.data;
+        console.log(this.response.data);
+      },
+
+       async del(id) {
+        console.log("id",id);
+
+        const response  = await fetch(
+          "http://localhost/fil-rouge/pet-shop/Backend/AccountsController/delete/" +
+            id,
+          {
+            method: "GET",
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+        this.$router.push("/AccountsView");
+        this.getAccounts();
+      },
         },
         }
    

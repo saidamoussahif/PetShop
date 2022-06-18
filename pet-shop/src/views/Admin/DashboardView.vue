@@ -61,6 +61,8 @@
     },
     mounted() {
       this.getCategories();
+      localStorage.getItem("admin") ? this.isLoggedIn = true : this.$router.push("/signinAdmin");
+      
     },
     methods: {
       getCategories: async function () {

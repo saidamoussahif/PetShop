@@ -5,7 +5,6 @@ import loginView from "../views/client/loginView.vue";
 import SignUp from "../views/client/SignUp.vue";
 import ContactView from "../views/ContactView.vue";
 import DashboardView from "../views/Admin/DashboardView.vue";
-// import DashboardClient from "../views/client/DashboardClient.vue";
 import AddProduct from "../views/Admin/AddProduct.vue";
 import signinAdmin from "../views/Admin/signinAdmin.vue";
 import ProductView from "../views/Admin/ProductView.vue";
@@ -14,8 +13,9 @@ import CategoryView from "../views/Admin/CategoryView.vue";
 import OrdersView from "../views/Admin/OrdersView.vue";
 import MessageView from "../views/Admin/MessageView.vue";
 import AccountsView from "../views/Admin/AccountsView.vue";
-import AddToCart from "../views/client/AddToCart.vue";
-import WishList from "../views/WishList.vue";
+import MyCart from "../views/client/MyCart.vue";
+import EditProduct from "../views/Admin/EditProduct.vue";
+
 
 
 
@@ -53,21 +53,23 @@ const routes = [
     name: "DashboardView",
     component: DashboardView,
   },
-  // {
-  //   path: "/DashboardClient",
-  //   name: "DashboardClient",
-  //   component: DashboardClient,
-  // },
+  {
+    path: "/MyCart",
+    name: "MyCart",
+    component: MyCart,
+  },
   {
     path: "/AddProduct",
     name: "AddProduct",
     component: AddProduct,
   },
+  
   {
-    path: "/AddToCart",
-    name: "AddToCart",
-    component: AddToCart,
+    path: "/EditProduct",
+    name: "EditProduct",
+    component: EditProduct,
   },
+  
   {
     path: "/ProductView",
     name: "ProductView",
@@ -104,11 +106,7 @@ const routes = [
     name: "AccountsView",
     component: AccountsView,
   },
-  {
-    path: "/WishList",
-    name: "WishList",
-    component: WishList,
-  },
+  
  
 ];
 

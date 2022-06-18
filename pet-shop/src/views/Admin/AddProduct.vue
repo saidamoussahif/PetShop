@@ -49,9 +49,9 @@
               required
             />
           </div>
-          <div class="form-group inputBox dropdown mt-3">
+          <div class="box inputBox dropdown ">
             <label for="examplegareA">Category</label>
-            <select name="category" v-model="category" id="">
+            <select name="category" class="box" v-model="category" id="">
               <option value="">Select Category</option>
               <option
                 v-for="(category, key) in categories"
@@ -61,19 +61,11 @@
                 {{ category.name }}
               </option>
             </select>
-            <!-- <input
-              v-model="category"
-              type="text"
-              class="form-control category"
-              placeholder="choose pet category"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            />
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li v-for="category in categories" :key="category.id">
                 <a class="dropdown-item" href="#">{{ category.name }}</a>
               </li>
-            </ul> -->
+            </ul> 
           </div>
           <div class="inputBox">
             <span>Product details</span>
@@ -241,7 +233,7 @@
     color: #fff;
   }
   .btn:hover {
-    background-color: #9e6203;
+    background-color: rgb(73, 97, 215);
   }
   .form-control {
     background-color: rgb(255, 255, 255);

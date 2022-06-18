@@ -12,12 +12,6 @@
           pets. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
           Corporis, in non.
         </p>
-        <a
-          class="btn text-light"
-          style="background-color: #f29b12"
-          href="/PetProduct"
-          >Show More</a
-        >
       </div>
     </div>
 
@@ -55,14 +49,15 @@
     <!-- *************************************************************************************** -->
     <section id="call-to-action">
       <div class="container dog-content">
-        <img src="../assets/adopt.png" class="img-dog" alt="" />
+        <img src="../assets/pets.png" class="img-dog" alt="" />
         <div class="text-content text-dark text-center">
-          <h4 class="title m-5">Discover our Pet Shop and Services</h4>
+          <h4 class="title m-3">Discover our Pet Shop and Services</h4>
           <p class="text-center">
             Contact or learn more about us and make your pet happy in your visit
             to our Shop and discover all our amazing products and services to
             make your pet very healthy and active with a lot of energy this
             winter lorem ipsum ipsuet dolor.
+            
           </p>
         </div>
       </div>
@@ -70,9 +65,6 @@
     <!-- *************************************************************************************** -->
     <div class="wp-container-62a7382107e30 wp-block-group our-beliefs">
       <div class="wp-block-group__inner-container">
-        <!-- <h2 class="has-text-align-center" id="the-wellie-way">
-          The Wellie Way
-        </h2> -->
         <!-- *************************************************************************************** -->
         <div class="wp-block-columns">
           <div class="wp-block-column">
@@ -139,7 +131,6 @@
               Together, <br />we are <br />unstoppable.
             </p>
           </div>
-
           <div class="wp-block-column">
             <div class="wp-block-image">
               <figure class="aligncenter size-full">
@@ -157,7 +148,6 @@
             <h3 class="has-text-align-center" id="for-the-world">
               For the World
             </h3>
-
             <p class="has-text-align-center">
               We are building a<br />better tomorrow for<br />pets, their
               parents, and the world.
@@ -169,11 +159,14 @@
 
     <!-- *************************************************************************************** -->
 
-    <section id="call-to-action">
-      <h4 class="title m-5">Our brands</h4>
+    <!-- <section id="call-to-action">
+      <h4 class="title m-3">Our brands</h4>
       <div class="container dog-content">
         <div class="text-content text-dark text-center">
           <p class="brand">
+              <img src="../assets/brand1.png" class="img-dog" alt="" />
+                <img src="../assets/brand2.png" class="img-dog" alt="" />
+                  <img src="../assets/brand3.png" class="img-dog" alt="" />
             At Wellness Pet, we fulfill a life of wellbeing together with pets.
             From our high-quality, natural meals and tasty treats, to our dental
             chews that help maintain dental health,we are proud to be a team of
@@ -183,7 +176,7 @@
           
         </div>
       </div>
-    </section>
+    </section> -->
 
   </div>
   <FooterView />
@@ -264,22 +257,38 @@
     transform: scale(1.1);
   }
   .description h4 {
+    font-size: 20px;
+    font-weight: bold;
     text-align: center;
     margin: 20px auto;
     color: rgb(88, 109, 216);
   }
+  .gallerie .container .carte .description p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #565656;
+  }
+   
 
   #call-to-action .dog-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    /* background-color: #ebebeb; */
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
   }
+    #call-to-action .dog-content .text-dark{
+      width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    }
   .img-dog {
-    width: 25%;
+    width: 35%;
     height: auto;
   }
   #call-to-action {
@@ -343,7 +352,7 @@
 
   .our-beliefs #the-wellie-way p {
     font-size: 20px;
-    color: #fff;
+    color: #565656;
     margin-top: 20px;
   }
   .our-beliefs h3 {

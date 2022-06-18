@@ -94,7 +94,7 @@
     color: rgb(255, 255, 255);
   }
 
-  ::-webkit-scrollbar {
+  /* ::-webkit-scrollbar {
     height: 0.5rem;
     width: 1rem;
   }
@@ -105,7 +105,7 @@
 
   ::-webkit-scrollbar-thumb {
     background-color: #2980b9;
-  }
+  } */
   .contact {
     background-color: #eee;
   }
@@ -123,7 +123,7 @@
   .btn:hover,
   .delete-btn:hover,
   .option-btn:hover {
-    background-color: #333;
+    background-color: #865302;
   }
   .btn {
     background-color: #f39c12;

@@ -20,14 +20,13 @@
           <div class="mx-auto"></div>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link class="nav-link text-dark link-r" to="/"
-                >Home</router-link
+              <a class="nav-link text-dark link-r" href="/"
+                >Home</a
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link text-dark link-r" to="/About"
-                >About</router-link
-              >
+              <a class="nav-link text-dark link-r" href="/About"
+                >About</a>
             </li>
             <li class="nav-item">
               <div class="nav-link text-dark link-r">
@@ -39,7 +38,7 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Gallery
+                    Categories
                   </a>
                   <ul
                     class="dropdown-menu"
@@ -58,16 +57,20 @@
               </div>
             </li>
             <li class="nav-item" v-if="isLoggedIn" v-on:click="logout">
-              <router-link class="nav-link text-dark link-r" to="/loginView"
+              <a class="nav-link text-dark link-r" href="/loginView"
                 >
                 {{ firstName }} {{ lastName }}
-               <FIcons :icon="['fas', 'shopping-cart']" />
-              </router-link>
+              </a>
             </li>
             <li class="nav-item" v-else >
-              <router-link class="nav-link text-dark link-r" to="/loginView"
+              <a class="nav-link text-dark link-r" href="/loginView"
                 >Login
-              </router-link>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark link-r" href="/MyCart"
+                > <FIcons class="icon" :icon="['fas', 'shopping-cart']" /><span>({{cart?cart.length:0}})</span>
+              </a>
             </li>
           </ul>
         </div> 
@@ -88,19 +91,20 @@
         isLoggedIn: false,
         firstName:"",
         lastName:"",
+        cart:[]
       };
     },
     mounted() {
 
       this.getCategories();
-      if (localStorage.getItem("loginas")) {
+      this.getCartItems();
+      if (localStorage.getItem("login")) {
         const data = JSON.parse(localStorage.getItem("login"));
         this.firstName = data.client.firstname;
         this.lastName = data.client.lastname;
         this.isLoggedIn = true;
       }
     },
-
     methods: {
       logout(){
       localStorage.removeItem('login');
@@ -118,8 +122,17 @@
           "http://localhost/fil-rouge/pet-shop/Backend/CategoryController/read"
         );
         this.categories = response.data;
+        // console.log(response.data);
+      },
+      getCartItems:  async function () {
+        // console.log(JSON.parse(localStorage.getItem("login")).client.id_client);
+        const response = await axios.get(
+          "http://localhost/fil-rouge/pet-shop/Backend/CartController/read/"+JSON.parse(localStorage.getItem("login")).client.id_client
+        );
+        this.cart = response.data;
         console.log(response.data);
       },
+
     },
   };
 </script>
@@ -166,6 +179,7 @@
 }
 .nav-item .icon{
  font-size: 22px;
+  color: #f29b12;
 }
 .nav-item .icon:hover{
   color: #f29b12;

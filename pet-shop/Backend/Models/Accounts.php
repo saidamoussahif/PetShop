@@ -17,7 +17,19 @@ class Accounts extends DB
             return false;
         } 
     }
+    
 
+    public function delete($id_client)
+    {
+        $query = "DELETE FROM `client` WHERE id_client=?";
+        
+        $log = $this->connect()->prepare($query);
+        if ($log->execute([$id_client])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
 

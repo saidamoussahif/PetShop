@@ -62,6 +62,7 @@
       SideBar,
       EditCategory,
       AddCategory,
+
     },
     data() {
       return {
@@ -95,7 +96,6 @@
       },
     },
   };
-  
 </script>
 
 <style scoped>
@@ -105,7 +105,6 @@
     align-items: center;
     margin-left: 2rem;
   }
-
   .add_category {
     background-color: rgb(88, 109, 216);
     color: #fff;

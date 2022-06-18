@@ -45,25 +45,11 @@ class Product extends DB
             $row = $log->fetch(PDO::FETCH_OBJ);
             return $row;
         } else {
-            return false;
+            return false; 
         }
     }
 
-    /***************************************************************************************/
-
-        public function countProduct()
-    {
-
-        $query = "SELECT COUNT(*) AS total FROM `product`";
-        $log = $this->connect()->prepare($query);
-        if ($log->execute()) {
-
-            $row = $log->fetch(PDO::FETCH_ASSOC);
-            return $row;
-        } else {
-            return false;
-        }
-    }
+    
     /***************************************************************************************/
  
     public function create($data)
@@ -102,6 +88,15 @@ class Product extends DB
         return $log->execute([$id]);
     }
 
+    public function GetOneProduct($id)
+    {
+        $query = "SELECT * FROM product WHERE id = $id";
+        $log = $this->connect()->prepare($query);
+        $log->execute();
+        $res = $log->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    }
+    
     
 }
  

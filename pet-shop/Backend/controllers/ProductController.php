@@ -25,19 +25,19 @@ class ProductController
         }
     }
     /***************************************************************************************/
-    
-    public function readSingle($id)
-    {    
-            $rdv = new Product();
-            // die(md5($id));
-            $rslt = $rdv->readSingle($id);
-            
-            if ($rslt) {
 
-                echo json_encode($rslt);
-            } else {
-                echo json_encode(['message' => 'No product exist']);
-            }
+    public function readSingle($id)
+    {
+        $rdv = new Product();
+        // die(md5($id));
+        $rslt = $rdv->readSingle($id);
+
+        if ($rslt) {
+
+            echo json_encode($rslt);
+        } else {
+            echo json_encode(['message' => 'No product exist']);
+        }
     }
     /***************************************************************************************/
 
@@ -52,11 +52,10 @@ class ProductController
 
             $urlParametre = end($host);
 
-
             $results = $product->readBycategoryName($urlParametre);
 
             if ($results) {
- 
+
                 echo json_encode($results);
             } else {
                 echo json_encode(['message' => 'there is no product in this category yet']);
@@ -65,40 +64,16 @@ class ProductController
     }
 
     /***************************************************************************************/
-    public function countProduct()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            $product = new Product();
-            $result = $product->countProduct();
-            if ($result) {
-
-                echo json_encode($result);
-            } else {
-                echo json_encode(['message' => 'no product exist']);
-            }
-        } else {
-            echo json_encode(['message' => 'change the method']);
-        }
-    }
-    /***************************************************************************************/
 
     public function create()
     {
-
         $product = new Product();
         $filename = $_FILES["image"]["name"];
         $tempname = $_FILES["image"]["tmp_name"];
         // $folder =  dirname(__DIR__). "/../../src/uploads_images/" . $filename;
         $folder =  "C:/xampp/htdocs/fil-rouge/pet-shop/src/uploads_images/" . $filename;
         move_uploaded_file($tempname, $folder);
-        // $image = $_FILES['image'];
-        // var_dump($image);
-        // $extention = pathinfo($image["name"], PATHINFO_EXTENSION);
-        // $new_name = uniqid('', true) . '.' . $extention;
-        // $target = "../../src/uploads_images" . $new_name;
-        // move_uploaded_file($image['tmp_name'], $target);
-
-        $data = array( 
+        $data = array(
             'name' => $_POST['name'],
             'price' => $_POST['price'],
             'quantity' => $_POST['quantity'],
@@ -106,7 +81,7 @@ class ProductController
             'details' => $_POST['details'],
             'category_name' => $_POST['category_name']
         );
-    
+
         if ($product->create($data)) {
             echo json_encode(['message' => 'Product created']);
         } else {
@@ -116,29 +91,30 @@ class ProductController
 
     /***************************************************************************************/
 
-    public function update()
-    {
-        $product = new Product();
-        $image = $_FILES['image'];
-        $extention = pathinfo($image["name"], PATHINFO_EXTENSION);
-        $new_name = uniqid('', true) . '.' . $extention;
-        $target = "C:\xampp\htdocs\fil-rouge\pet-shop\public\uploads/" . $new_name;
-        move_uploaded_file($image['tmp_name'], $target);
+    // public function update()
+    // {
 
-        $name = $_POST['name'];
-        $price = $_POST['price'];
-        $quantity = $_POST['quantity'];
-        $image = $new_name;
-        $details = $_POST['details'];
-        $category_name = $_POST['category_name'];
-        $id = $_POST['id'];
-
-        if ($product->update($name, $price, $quantity, $image, $details, $category_name, $id)) {
-            echo json_encode(['message' => 'Product updated']);
-        } else {
-            echo json_encode(['message' => 'Product not updated']);
-        }
-    }
+    //     $product = new Product();
+    //     $filename = $_FILES["image"]["name"];
+    //     $tempname = $_FILES["image"]["tmp_name"];
+    //     // $folder =  dirname(__DIR__). "/../../src/uploads_images/" . $filename;
+    //     $folder =  "C:/xampp/htdocs/fil-rouge/pet-shop/src/uploads_images/" . $filename;
+    //     move_uploaded_file($tempname, $folder);
+    //     $data = array(
+    //         'id' => $_POST['id'],
+    //         'name' => $_POST['name'],
+    //         'price' => $_POST['price'],
+    //         'quantity' => $_POST['quantity'],
+    //         'image' => $filename,
+    //         'details' => $_POST['details'],
+    //         'category_name' => $_POST['category_name']
+    //     );
+    //     if ($product->update($data)) {
+    //         echo json_encode(['message' => 'Product updated']);
+    //     } else {
+    //         echo json_encode(['message' => 'Product not updated']);
+    //     }
+    // }
 
     /***************************************************************************************/
 
@@ -152,6 +128,23 @@ class ProductController
             } else {
                 echo json_encode(['message' => 'Product not deleted']);
             }
+        }
+    }
+
+
+    /***************************************************************************************/
+
+    public function GetOneProduct($id)
+    {
+        $new = new Product();
+        $var = $new->GetOneProduct($id);
+
+        if ($var) {
+            http_response_code(200);
+            echo json_encode($var);
+        } else {
+            http_response_code(400);
+            echo json_encode(array("message" => "error"));
         }
     }
 }

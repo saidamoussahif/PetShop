@@ -104,4 +104,54 @@ class ClientController
     }
     }
 
-}
+  
+
+    /***************************************************************************************/
+
+        // public function AddToCart(){
+        //     $data = json_decode(file_get_contents("php://input"));
+        //     $client = new Client();
+        //     $dataCart = [];
+        //     if($data){
+        //         $dataCart = [
+        //                 'id_client' => $data->id_client,
+        //                 'id_product' => $data->id_product,
+        //                 'quantity' => $data->quantity
+        //         ];
+        //     }
+        //     if($dataCart){
+        //         if ($client->AddToCart($dataCart)) {
+        //             echo json_encode(['success' => 'Product added successfully']);
+        //         } else {
+        //             echo json_encode(['error' => 'Product failed']);
+        //         }
+        //     }
+        // }
+
+
+        /***************************************************************************************/
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

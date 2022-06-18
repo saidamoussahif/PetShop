@@ -44,7 +44,7 @@
     },
      mounted() {
       if (localStorage.getItem("login")) {
-        this.$router.push("/PetProduct");
+        this.$router.push("/");
       }
     },
     methods: {
@@ -69,7 +69,7 @@
         })
 
           .then((Response) => { 
-            console.log(Response.data);
+            console.log(Response.data); 
 
             if (Response.data.success) {
              this.$router.push({ name: "/" });
@@ -92,11 +92,11 @@
     border: none;
     text-decoration: none;
   }
-  *::selection {
+  /* *::selection {
     background-color: #2980b9;
     color: rgb(255, 255, 255);
-  }
-
+  } */
+/* 
   ::-webkit-scrollbar {
     height: 0.5rem;
     width: 1rem;
@@ -108,7 +108,7 @@
 
   ::-webkit-scrollbar-thumb {
     background-color: #2980b9;
-  }
+  } */
   .login {
     background-color: #eee;
   }
@@ -126,7 +126,7 @@
   .btn:hover,
   .delete-btn:hover,
   .option-btn:hover {
-    background-color: #333;
+    background-color: #af6e05;
   }
   .btn {
     background-color: #f39c12;

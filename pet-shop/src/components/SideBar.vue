@@ -1,6 +1,7 @@
 <template>
  <div class="home">
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav
+     class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
   <a class="navbar-brand text-dark" href="/DashboardView">Admin <span>Panel</span></a>
         <button
@@ -19,33 +20,33 @@
           <div class="mx-auto"></div>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link class="nav-link text-dark link-r" to="/CategoryView"
-                >Category</router-link
+              <a class="nav-link text-dark link-r" href="/CategoryView"
+                >Category</a
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link text-dark link-r" to ="/ProductView"
-                >Products</router-link
+              <a class="nav-link text-dark link-r" href ="/ProductView"
+                >Products</a
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link list text-dark link-r" to="/MessageView"
-                >Messages</router-link
+              <a class="nav-link list text-dark link-r" href="/MessageView"
+                >Messages</a
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link list text-dark link-r" to="/OrdersView"
-                >Orders</router-link
+              <a class="nav-link list text-dark link-r" href="/OrdersView"
+                >Orders</a
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link list text-dark link-r" to="/AccountsView"
-                >Accounts</router-link
+              <a class="nav-link list text-dark link-r" href="/AccountsView"
+                >Accounts</a
               >
             </li>  
-             <li class="nav-item"  v-if="isLoggedIn"  @click="logout">
-              <router-link class="nav-link list text-dark link-r" to="/"
-                >Logout</router-link
+             <li class="nav-item"    @click="logout">
+              <a class="nav-link list text-dark link-r" href="/"
+                >Logout</a
               >
             </li>     
           </ul>
@@ -70,8 +71,14 @@ export default {
       //   this.$router.push("/");
       // },
        if (localStorage.getItem("login")) {
-        const data = JSON.parse(localStorage.getItem("login"));
-        this.firstName = data.admin.firstname;
+        // const data = JSON.parse(localStorage.getItem("login")).client;
+        // console.log(data.firstname);
+        // setTimeout(() => {
+        //   this.firstName = data.firstname;
+        //   this.isLoading =false;
+        // }, 1000);
+          //  this.firstName = data.firstname;
+        // this.firstName = data.admin.firstname;
         this.isLoggedIn = true;
       }
     },

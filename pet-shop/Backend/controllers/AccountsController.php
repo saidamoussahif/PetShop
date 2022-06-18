@@ -25,4 +25,23 @@ class AccountsController
             echo json_encode(['message' => 'change the method']);
         }
     }
+
+
+    public function delete($id)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $product = new Accounts();
+            $result = $product->delete($id);
+            if ($result) {
+
+                echo json_encode(['message' => 'account deleted']);
+            } else {
+                echo json_encode(['message' => 'no account exist']);
+            }
+        } else {
+            echo json_encode(['message' => 'change the method']);
+        }
+    }
+
+
 }

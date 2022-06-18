@@ -13,17 +13,20 @@
             />
         </div>
         <div class="info">
-          <h3 class="title">{{ product.name }}</h3>
-          <div class="description">
+          <!-- <h3 class="title"> {{ product.name }}</h3> -->
+          <div class="description">    
+               <!-- <h5>Quantity:{{ product.quantity }}</h5> -->
+              
             <p>
-              {{ product.details }}
+           <span>Description of product:</span> {{ product.details }}
             </p>
           </div>
           <div class="subInfo">
-            <span>{{ product.quantity }}</span>
+     
+
             <div class="price">
               {{ product.price }}
-              <span>MAD</span>
+              MAD
             </div>
             <div class="stars">
               <FIcons :icon="['fas', 'star']" />
@@ -32,12 +35,13 @@
               <FIcons :icon="['fas', 'star']" />
               <FIcons :icon="['fas', 'star-half']" />
             </div>
+          <!-- <div class="quantity"><input type="number" min="1" placeholder="select"></div> -->
+
           </div>
         </div>
         
         <div class="overlay">
-          <!-- <a href="#"><FIcons :icon="['fas', 'heart']" /></a> -->
-          <a href="/AddToCart"><FIcons :icon="['fas', 'shopping-cart']" /></a>
+          <button class="addToCart"  @click="addToCartHandler(product)"><FIcons :icon="['fas', 'shopping-cart']" /></button>
         </div>
       </div>
       </div>
@@ -45,7 +49,6 @@
   </div>
 </template>
 <script>
-  // import FooterView from "../components/FooterView";
   import axios from "axios";
   import NavBar from "../components/NavBar";
   export default {
@@ -53,7 +56,7 @@
     name: "PetProduct",
     components: {
       NavBar,
-      // FooterView,
+    
     },
     data() {
       return {
@@ -69,6 +72,30 @@
 
     },
     methods: {
+      addToCartHandler:async function(product){
+        const data = JSON.parse(localStorage.getItem("login"));
+        if(data){
+          const client = data.client;
+         console.log('client');
+          const productCart = new FormData();
+        productCart.append("id_client", client.id_client);
+        productCart.append("id_product", product.id);
+        productCart.append("quantity", 1); 
+        const response = await axios.post(
+          "http://localhost/fil-rouge/pet-shop/Backend/CartController/addToCart",
+          productCart
+        );
+        console.log(response.data);
+       
+          }
+        
+        else{
+          alert("Please login to add to cart");
+            this.$router.push("/loginview");
+        }
+      },
+        
+
       getProducts: async function () {
         await axios
           .post(
@@ -83,7 +110,7 @@
             } else {
               if (response.data) {
                 this.products = response.data;
-                console.log(this.products);
+                // console.log(this.products);
               }
             }
           });
@@ -135,6 +162,12 @@
     color: rgb(0, 0, 0);
     font-size: 20px;
   }
+  .box .info .description {
+    padding: 20px;
+    text-align: center;
+    color: rgb(99, 99, 99);
+    font-size: 15px;
+  }
   .box .info .subInfo {
     display: flex;
     justify-content: space-between;
@@ -144,8 +177,9 @@
   }
 
   .box .info .subInfo .price {
-    color: #ff3300;
-    font-size: 20px;
+    color: #28a0e5;
+    font-size: 15px;
+    font-weight: bold;
   }
   .box .info .subInfo .price input {
     border-radius: 3px;
@@ -164,6 +198,18 @@
     align-items: center;
     color: #fa9c4e;
     font-size: 15px;
+  }
+   .box .info .subInfo .quantity input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #3d3d3d;
+    width: 80px;
+    border-radius: 3px;
+    border: 1px solid #8d8d8d;
+    padding: 5px;
+    height: auto;
+    font-size: 18px;
   }
   .box .info .subInfo .qty {
     display: flex;
@@ -194,21 +240,22 @@
   .box:hover .overlay {
     transform: scale(1);
   }
-  .box .overlay a {
+  .box .overlay .addToCart {
     color: rgb(202, 200, 200);
-    background: rgb(255, 255, 255);
-    border-radius: 3px;
+    background: none;
+    border: none;
+    /* border-radius: 3px; */
     margin: 10px;
     padding: 13px 15px;
-    font-size: 25px;
+    font-size: 35px;
     transform: translateY(-150px);
     transition-property: transform;
     transition-delay: calc(0.1s);
   }
-  .box .overlay a:hover {
+  .box .overlay .addToCart:hover {
     color: #fa9c4e;
   }
-  .box:hover .overlay a {
+  .box:hover .overlay .addToCart {
     transform: translate(0px);
   }
   .btn {

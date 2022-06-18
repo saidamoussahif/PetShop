@@ -33,12 +33,12 @@
               </div>
 
               <div class="form-group">
-                <label for="examplegareA" selected disabled>Name</label>
+                <label for="examplegareA" selected disabled>Name rr</label>
                 <input
                   type="text"
                   class="form-control"
-                  v-model="editProduct.name"
                 />
+                {{product.name}}
               </div>
               <div class="form-group">
                 <label for="examplegareA">Price</label>
@@ -58,7 +58,7 @@
                   v-model="editProduct.quantity"
                 />
               </div>
-              <div class="form-group inputBox dropdown mt-3">
+              <div class="form-control inputBox dropdown mt-3">
                 <label for="examplegareA">Category</label>
                 <select name="category" v-model="category" id="">
                   <option value="">Select Category</option>
@@ -70,6 +70,18 @@
                     {{ category.name }}
                   </option>
                 </select>
+              </div>
+              <div class="inputBox">
+                <span>Product details</span>
+                <textarea
+                  v-model="details"
+                  class="box"
+                  cols="30"
+                  rows="10"
+                  placeholder="enter product details"
+                  required
+                  maxlength="500"
+                ></textarea>
               </div>
             </form>
           </div>
@@ -91,14 +103,37 @@
       return {
         categories: [],
         editProduct: "",
-        id: "",
+        //  get Product by id from database
+        idProduct: localStorage["idProduct"],
+        product: [],
+        //  get Product by id from database
       };
     },
-     mounted() {
+    mounted() {
       this.getCategories();
       this.getProducts();
+      this.GetOneProduct(); 
+      // test
+      console.log(this.idProduct);
+      // test
     },
     methods: {
+      //  get Product by id from database
+      GetOneProduct() {
+        axios
+          .get(
+            `http://localhost/fil-rouge/pet-shop/Backend/ProductController/GetOneProduct/${this.idProduct}`
+          )
+          .then((res) => {
+            console.log(res.data);
+            this.product = res.data;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+      //  get Product by id from database
+
       getCategories: async function () {
         const response = await axios.get(
           "http://localhost/fil-rouge/pet-shop/Backend/CategoryController/read"
@@ -106,25 +141,26 @@
         this.categories = response.data;
         console.log(response.data);
       },
-       getProducts: async function () {
+      getProducts: async function () {
         const response = await axios.getAll(
           "http://localhost/fil-rouge/pet-shop/Backend/ProductController/read"
         );
         this.products = response.data;
       },
-  
-   async getSingle(id) {
+
+      async getSingle(id) {
         const response = await fetch(
-          "http://localhost/fil-rouge/pet-shop/Backend/ProductController/readSingle/" + id,
+          "http://localhost/fil-rouge/pet-shop/Backend/ProductController/readSingle/" +
+            id,
           { method: "POST", headers: { "content-type": "applicaton/json" } }
         );
         const data = await response.json();
         console.log(data);
         this.editProduct = data;
       },
-     async update(id) {
-        const obj = {   
-           image: this.editProduct.image,
+      async update(id) {
+        const obj = {
+          image: this.editProduct.image,
           name: this.editProduct.name,
           price: this.editProduct.price,
           quantity: this.editProduct.quantity,
@@ -132,20 +168,23 @@
           datails: this.editProduct.details,
         };
 
-        await fetch(" http://localhost/fil-rouge/pet-shop/Backend/ProductController/update/" + id, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(obj),
-        });
+        await fetch(
+          " http://localhost/fil-rouge/pet-shop/Backend/ProductController/update/" +
+            id,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(obj),
+          }
+        );
         await this.getAll();
-      
+
         this.$router.push("/ProductView");
-      }, 
-      
-  },
-  }
+      },
+    },
+  };
 </script>
 <style scoped>
   .form-group input {
@@ -164,5 +203,9 @@
   .text-center {
     padding-left: 10rem;
     color: rgb(87, 136, 235);
+  }
+  .modal-body .inputBox textarea {
+    resize: none;
+    height: 2.5rem;
   }
 </style>

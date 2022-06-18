@@ -1,30 +1,19 @@
 <template>
   <div class="page">
     <SideBar />
-
-    <!-- <div class="col-10" style="text-align: left"></div> -->
-    <!-- <div class="col-2">
-      <router-link
-        class="btn add_product"
-        style="width: 10vw"
-        :to="{ path: '/AddProduct' }"
-        >+</router-link
-      > -->
-   
-
     <div class="container">
-      <h2>List of pet product</h2> 
-        <div class="row rdvherd">
-      <div class="col-10" style="text-align: left"></div>
-      <div class="col-2">
-        <router-link
-         class="btn add_product"
-          style="width: 9vw"
-      :to="{ path: '/AddProduct' }"
-          >+</router-link
-        >
+      <h2>List of pet product</h2>
+      <div class="row rdvherd">
+        <div class="col-10" style="text-align: left"></div>
+        <div class="col-2">
+          <router-link
+            class="btn add_product"
+            style="width: 9vw"
+            :to="{ path: '/AddProduct' }"
+            >+</router-link
+          >
+        </div>
       </div>
-    </div>
       <ul class="responsive-table">
         <li class="table-header">
           <div class="col col-2 text-white">Image</div>
@@ -58,15 +47,18 @@
           <div class="col col-1" data-label="Payment Status :">
             {{ product.details }}
           </div>
-          <div class="col col-1" data-label="Payment Status">
-            <button
-              class="btn edit"
-              data-bs-toggle="modal"
-              data-bs-target="#editProductModal"
-               @click="getSingle(elemt.id)"
-            >
-              <FIcons :icon="['fa', 'edit']" />
-            </button>
+          <div class="col col-1 d-flex" data-label="Payment Status">
+            <div>
+              <input type="hidden" v-model="product.id" />
+              <a
+                class="btn edit"
+              href="/EditProduct"
+       
+                @click="StoreIdProduct(product.id)"
+              >
+                <FIcons :icon="['fa', 'edit']" />
+              </a>
+            </div>
             <button class="btn delete" @click="del(product.id)">
               <FIcons :icon="['fas', 'trash']" />
             </button>
@@ -75,102 +67,9 @@
       </ul>
     </div>
 
-    <!-- <div class="menu col-lg-12 my-lg-0 my-1">
-      <div class="container">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th class="text-center">Name</th>
-              <th class="text-center">Price</th>
-              <th class="text-center">Quantity</th>
-              <th class="text-center">Image</th>
-              <th class="text-center">Details</th>
-              <th class="text-center">Category</th>
-              <th class="text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody v-for="product in products" :key="product.id">
-            <tr>
-              <td class="text-center">{{ product.name }}</td>
-              <td class="text-center">{{ product.price }}</td>
-              <td class="text-center">{{ product.quantity }}</td>
-              <td class="text-center">
-                <img
-                  :src="`http://localhost/fil-rouge/pet-shop/Backend/uploads_images/${product.image}`"
-                  style="width: 200px; height: 100px"
-                  alt=""
-                />
-              </td>
-              <td class="text-center">{{ product.details }}</td>
-              <td class="text-center">{{ product.category_name }}</td>
-              <td class="text-center">
-                <span class="action_btn">
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#editProductModal"
-                  >
-                    <FIcons :icon="['fa', 'edit']" />
-                  </button>
-                  <button type="button" class="btn btn-outline-danger">
-                    <FIcons :icon="['fa', 'delete-left']" />
-                  </button>
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div> -->
     <EditCategory />
-    <!-- </div> -->
-
-    <!-- <table>
-            <thead>
-              <tr>
-                <th class="text-center">Name</th>
-                <th class="text-center">Price</th>
-                <th class="text-center">Quantity</th>
-                <th class="text-center">Image</th>
-                <th class="text-center">Details</th>
-                <th class="text-center">Category </th>
-                <th class="text-center">Action</th>
-              </tr>
-            </thead>
-
-            <tbody v-for="product in products" :key="product.id">
-              <tr>
-                <td>{{product.name}}</td>
-                <td>{{product.price}}</td>
-                <td>{{product.quantity}}</td>
-                <td>
-                  <img
-                    :src='`http://localhost/fil-rouge/pet-shop/Backend/uploads_images/${product.image}`'
-                    style="width: 200px; height: 100px;"
-                    alt=""/>
-                  </td>
-                <td>{{product.details}}</td>
-                 <td>{{product.category_name}}</td>
-                <td>
-                  <span class="action_btn">
-                    <button
-                      type="button"
-                      class="btn btn-outline-dark"
-                      data-bs-toggle="modal"
-                      data-bs-target="#editProductModal"
-                    >
-                      Edit
-                    </button>
-                    <button type="button" class="btn">Remove</button>
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>  -->
     <EditProduct />
-    <!-- </div> -->
   </div>
-  <!-- </div> -->
 </template>
 
 <script>
@@ -215,16 +114,21 @@
         const response = await fetch(
           "http://localhost/fil-rouge/pet-shop/Backend/ProductController/readSingle/" +
             id,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              }
-            }
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
         const data = await response.json();
         console.log(data);
         this.EditProduct = data;
+      },
+      StoreIdProduct(idProduct) {
+        // clear localStorage
+        localStorage.removeItem("idProduct");
+        localStorage.setItem("idProduct", idProduct);
       },
     },
   };
@@ -242,6 +146,8 @@
     font-size: 26px;
     margin: 20px 0;
     text-align: center;
+    color: rgb(94, 116, 226);
+    font-weight: bold;
   }
   h2 small {
     font-size: 0.5em;
@@ -268,33 +174,40 @@
     flex-basis: 10%;
   }
   .col .edit {
-    color: #fff;
-    background-color: #00c851;
+    color: #00c851;
+    /* background-color: #00c851; */
     border-radius: 3px;
     padding: 5px;
     margin-right: 10px;
+    font-size: 20px;
   }
   .col .delete {
-    color: #fff;
-    background-color: #f44336;
+    /* color: #fff; */
+    color: #de1e1e;
+    /* background-color: #f44336; */
     border-radius: 3px;
     padding: 5px;
     margin-right: 10px;
+    font-size: 20px;
   }
   .col .edit:hover {
     text-decoration: none;
-    color: #fff;
-    background-color: #048e0d;
+    color: #036f3b;
+    /* background-color: #048e0d; */
     border-radius: 3px;
+    transform: scale(1.1);
+    transition: all 1s ease;
     padding: 5px;
     margin-right: 10px;
     cursor: pointer;
   }
   .col .delete:hover {
     text-decoration: none;
-    color: #fff;
-    background-color: #a30606;
+    color: #fa5b4f;
+    /* background-color: #a30606; */
     border-radius: 3px;
+    transform: scale(1.1);
+    transition: all 1s ease;
     padding: 5px;
     margin-right: 10px;
     cursor: pointer;

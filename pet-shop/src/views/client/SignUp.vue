@@ -104,7 +104,7 @@
     border: none;
     text-decoration: none;
   }
-  *::selection {
+  /* *::selection {
     background-color: #2980b9;
     color: rgb(255, 255, 255);
   }
@@ -120,7 +120,7 @@
 
   ::-webkit-scrollbar-thumb {
     background-color: #2980b9;
-  }
+  } */
   .register {
     background-color: #eee;
   }
@@ -138,7 +138,7 @@
   .btn:hover,
   .delete-btn:hover,
   .option-btn:hover {
-    background-color: #333;
+    background-color: #af6e05;
   }
   .btn {
     background-color: #f39c12;

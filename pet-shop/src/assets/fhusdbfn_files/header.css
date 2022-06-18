@@ -1,0 +1,26 @@
+.custom-nav-li-mobile-only {
+  display: none !important;
+}
+
+.custom-nav-li-with-image {
+  display: flex !important;
+  justify-content: space-around !important;
+}
+
+.navigation__item-image:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+  .custom-nav-li-with-image {
+    display: none !important;
+  }
+
+  .navigation__item-2 {
+    display: none;
+  }
+
+  .custom-nav-li-mobile-only {
+    display: flex !important;
+  }
+}
